@@ -1,0 +1,14 @@
+type Query {
+    getAllCustomers : [Customer]
+    getCustomersWithOrder(orderName : String): [Customer]
+}
+
+type Customer {
+    fullName : String
+    orders : [Order]
+}
+
+type Order {
+    name : String
+    price : Float
+}
