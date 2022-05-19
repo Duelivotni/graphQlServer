@@ -1,16 +1,16 @@
-package com.example.grapghQLserver.datastore;
+package com.example.graphQLserver.datastore;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.example.grapghQLserver.domain.Customer;
-import com.example.grapghQLserver.domain.Order;
+import com.example.graphQLserver.domain.Customer;
+import com.example.graphQLserver.domain.Order;
 
 import org.springframework.lang.Nullable;
 
 public class CustomerStore {
 
-    private static final List<Customer> cutomerOrderData = List.of(
+    protected static final List<Customer> cutomerOrderData = List.of(
         new Customer("John", List.of(
             new Order("Potatoe", 15.55), new Order("Cucumber", 16.20))),
         new Customer("Matt", List.of(
@@ -25,7 +25,7 @@ public class CustomerStore {
     }
     
     /** 
-     * Поиск клиентов по наличию у них определенного товара в заказе
+     * Поиск клиентов по наличию у них определенного товара в заказах
      * 
      * @param String orderName - наименование товара
      * @return List<Customer> - список клиентов
@@ -33,11 +33,11 @@ public class CustomerStore {
     public static List<Customer> getCustomers(@Nullable String orderName) {
         if (orderName == null) return cutomerOrderData;
         return cutomerOrderData
-        .stream()
+        .parallelStream()
         .filter(
             customer -> customer.getOrders()
-            .stream()
-            .anyMatch(order -> order.getName() == orderName))
+            .parallelStream()
+            .anyMatch(order -> order.getName().equals(orderName)))
         .collect(Collectors.toList());
     }
 }

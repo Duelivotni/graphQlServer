@@ -1,15 +1,15 @@
-package com.example.grapghQLserver.datafetchers;
+package com.example.graphQLserver.datafetchers;
 
 import java.util.List;
 
-import com.example.grapghQLserver.datastore.CustomerStore;
-import com.example.grapghQLserver.domain.Customer;
+import com.example.graphQLserver.datastore.CustomerStore;
+import com.example.graphQLserver.domain.Customer;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import com.netflix.graphql.dgs.InputArgument;
 
 @DgsComponent
-public class CutomerDataFetcher {
+public class CustomerDataFetcher {
 
     @DgsQuery
     public List<Customer> getAllCustomers() {

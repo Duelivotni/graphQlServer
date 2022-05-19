@@ -4,11 +4,13 @@ type Query {
 }
 
 type Customer {
+    id : ID
     fullName : String
     orders : [Order]
 }
 
 type Order {
+    id : ID
     name : String
     price : Float
 }

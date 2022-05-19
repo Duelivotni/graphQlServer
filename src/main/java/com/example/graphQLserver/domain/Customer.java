@@ -1,4 +1,4 @@
-package com.example.grapghQLserver.domain;
+package com.example.graphQLserver.domain;
 
 import java.util.List;
 import java.util.UUID;
