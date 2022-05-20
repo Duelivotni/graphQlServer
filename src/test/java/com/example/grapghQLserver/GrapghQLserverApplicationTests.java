@@ -15,8 +15,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import graphql.ExecutionResult;
 
-@SpringBootTest(classes = {DgsAutoConfiguration.class, CustomerDataFetcher.class})
-class GrapghQLserverApplicationTests extends CustomerStore {
+@SpringBootTest(classes = {DgsAutoConfiguration.class, CustomerDataFetcher.class, CustomerStore.class})
+class GrapghQLserverApplicationTests {
 
 	@Autowired
 	DgsQueryExecutor dgsQueryExecutor;

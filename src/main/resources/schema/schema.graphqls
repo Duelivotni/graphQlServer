@@ -3,6 +3,20 @@ type Query {
     getCustomersWithOrder(orderName : String): [Customer]
 }
 
+type Mutation {
+    addCustomer(input : CustomerInput) : Customer
+}
+
+input OrderInput {
+    name : String
+    price : Float
+}
+
+input CustomerInput {
+    fullName : String
+    orders : [OrderInput] 
+}
+
 type Customer {
     id : ID
     fullName : String
