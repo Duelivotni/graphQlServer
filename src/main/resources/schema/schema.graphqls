@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
     addCustomer(input : CustomerInput) : Customer
+    removeCustomer(customerName : String) : [Customer]
 }
 
 input OrderInput {

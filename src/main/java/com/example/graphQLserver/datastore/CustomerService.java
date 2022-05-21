@@ -6,12 +6,13 @@ import java.util.stream.Collectors;
 
 import com.example.graphQLserver.domain.Customer;
 import com.example.graphQLserver.domain.Order;
+import com.netflix.graphql.dgs.exceptions.DgsEntityNotFoundException;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerStore {
+public class CustomerService {
 
     private List<Customer> customerOrderData = new ArrayList<>(List.of(
         new Customer("John", List.of(
@@ -59,5 +60,22 @@ public class CustomerStore {
         Customer customer = new Customer(fullName, orders);
         customerOrderData.add(customer);    
         return customer;
+    }
+
+    /** 
+     * Удаление клиента по его ID
+     * Если клиент не найден выносится исключение
+     * 
+     * @param customerName - имя клиента
+     * @return List<Customer> - список всех клиентов за вычетом удаленного
+     */
+    public List<Customer> deleteCustomer(String customerName) {
+        for (Customer customer : customerOrderData) {
+            if (customer.getFullName().equalsIgnoreCase(customerName)) {
+                customerOrderData.remove(customer);
+                return customerOrderData;
+            }
+        }
+        throw new DgsEntityNotFoundException("Customer is not found");
     }
 }

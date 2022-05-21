@@ -1,9 +1,10 @@
 package com.example.graphQLserver.datafetchers;
 
 import java.util.List;
+import java.util.UUID;
 
 import com.example.graphQLserver.datastore.CustomerInput;
-import com.example.graphQLserver.datastore.CustomerStore;
+import com.example.graphQLserver.datastore.CustomerService;
 import com.example.graphQLserver.domain.Customer;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
@@ -15,25 +16,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 @DgsComponent
 public class CustomerDataFetcher {
 
-    private final CustomerStore customerStore;
+    private final CustomerService customerService;
 
     @Autowired
-    public CustomerDataFetcher(CustomerStore customerStore) {
-        this.customerStore = customerStore;
+    public CustomerDataFetcher(CustomerService customerService) {
+        this.customerService = customerService;
     }
     
     @DgsQuery
     public List<Customer> getAllCustomers() {
-        return customerStore.getCustomers();
+        return customerService.getCustomers();
     }
 
     @DgsQuery
     public List<Customer> getCustomersWithOrder(@InputArgument String orderName) {
-        return customerStore.getCustomers(orderName);
+        return customerService.getCustomers(orderName);
     }
 
     @DgsData(parentType = "Mutation")
     public Customer addCustomer(@InputArgument("input") CustomerInput customerInput) {
-        return customerStore.addNewCustomer(customerInput);    
+        return customerService.addNewCustomer(customerInput);    
+    }
+
+    @DgsData(parentType = "Mutation")
+    public List<Customer> removeCustomer(@InputArgument("customerName") String customerName) {
+        return customerService.deleteCustomer(customerName);
     }
 }
