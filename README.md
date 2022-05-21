@@ -42,3 +42,18 @@ mutation {
     }
   }
 }
+
+**REMOVE CUSTOMER**
+mutation {
+  removeCustomer(
+    customerName : "CustomerToDelete")
+  {
+        fullName
+    id
+    orders {
+      id
+      name
+      price
+    }
+  }
+}
