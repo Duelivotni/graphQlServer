@@ -1,7 +1,6 @@
 package com.example.graphQLserver.datafetchers;
 
 import java.util.List;
-import java.util.UUID;
 
 import com.example.graphQLserver.datastore.CustomerInput;
 import com.example.graphQLserver.datastore.CustomerService;

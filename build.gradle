@@ -16,7 +16,10 @@ dependencies {
 	implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter"
 	implementation 'org.springframework.boot:spring-boot-starter'
-	implementation 'com.google.code.gson:gson:2.9.0'
+	implementation 'org.springframework.boot:spring-boot-starter-web:2.6.7'
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+	implementation 'com.h2database:h2'
+	implementation 'io.leangen.graphql:spqr:0.11.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
