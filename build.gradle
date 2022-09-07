@@ -21,6 +21,8 @@ dependencies {
 	implementation 'com.h2database:h2'
 	implementation 'io.leangen.graphql:spqr:0.11.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compileOnly 'org.projectlombok:lombok:1.18.4'
+	annotationProcessor 'org.projectlombok:lombok:1.18.4'
 }
 
 tasks.named('test') {

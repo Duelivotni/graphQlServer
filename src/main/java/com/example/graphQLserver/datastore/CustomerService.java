@@ -34,8 +34,16 @@ public class CustomerService {
      * @return List<Customer> - список клиентов
      */
     public List<Customer> getCustomers(@Nullable String orderName) {
-        return orderName == null ? 
-        (List<Customer>) customerRepository.findAll() : customerRepository.findAllWithOrder(orderName);
+        if (orderName == null) {
+            List<Customer> customers = customerRepository.findAll();
+            if (customers.isEmpty()) {
+                throw new RuntimeException("No customers found");
+            } else {
+                return customers;
+            }
+        } else {
+            return customerRepository.findAllWithOrder(orderName);
+        }
     }
 
     /** 
@@ -46,13 +54,18 @@ public class CustomerService {
      */
     public Customer addNewCustomer(CustomerInput customerInput) {
         String fullName = customerInput.getFullName();
-        List<Order> orders = customerInput.getOrders()
-        .stream()
+        List<OrderInput> orders = customerInput.getOrders();
+        if (orders.isEmpty()) {
+            throw new RuntimeException("Customer does not have orders");
+        }
+        List<Order> customerOrders =  orders.stream()
         .map(order -> new Order(order.getName(), order.getPrice()))
         .collect(Collectors.toList());
+
         Customer customer = new Customer();
         customer.setFullName(fullName);
-        customer.setOrders(orders);
+        customer.setOrders(customerOrders);
+
         return customerRepository.save(customer);
     }
 
@@ -65,6 +78,5 @@ public class CustomerService {
     public List<Customer> deleteCustomer(String customerName) {
         customerRepository.deleteByName(customerName);
         return getCustomers();
-        //throw new DgsEntityNotFoundException("Customer is not found");
     }
 }
